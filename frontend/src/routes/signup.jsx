@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Heading, SubHeading, InputBox, Button } from "../components/components";
 import { useState } from "react";
 import axios from "axios";
@@ -9,6 +9,9 @@ export const Signup = () => {
     const [lastName, setLastName] = useState("");
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+
 
     return <div className="flex h-screen w-screen bg-slate-200 justify-center items-center">
         <div className="bg-white h-auto w-80 border-4  rounded-2xl">
@@ -28,18 +31,23 @@ export const Signup = () => {
                 <div className="flex justify-center">
                     <Button onClick={async () => {
                         // axios.get(`${USER_URL}`)
-                        const response = await axios.post(`${USER_URL}/signup`, {
-                            username,
-                            password,
-                            firstName,
-                            lastName
-                        })
-                        localStorage.setItem("token",`Bearer ${response.data.id}`)
-                    }}  text="Sign up" />
+                            try {
+                                const response = await axios.post(`${USER_URL}/signup`, {
+                                    username,
+                                    password,
+                                    firstName,
+                                    lastName
+                                })
+                                localStorage.setItem("token",`Bearer ${response.data.id}`)
+                                navigate("../dashboard");
+                            } catch (error) {                     }
+                            
+                        }}  
+                    text="Sign up" />
                 </div>
                 <div className="flex justify-center">
                 <SubHeading text="Already have account? "/>
-                <Link className="pl-1 underline">
+                <Link to={"/signin"} className="pl-1 underline">
                     <SubHeading text="Login" />
                 </Link>
                 </div>
