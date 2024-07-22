@@ -35,7 +35,7 @@ export const Dashboard = () => {
 
     return <div>
         <div className="">
-            <div className="bg-slate-200 flex h-screen w-screen justify-center items-center">
+            <div className="bg-slate-200 flex h-auto w-screen justify-center items-center">
                 <div className="bg-white pb-4 m-24 h-auto w-11/12">
                     <div className=" flex">
                         <Appbar title="Payments App" name="User"/>
